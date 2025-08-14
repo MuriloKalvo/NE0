@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <title>Login</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo.png') }}">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='Fundo.jpg') }}");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    h1 { color: #000; font-family: Arial; font-size: 80px; }
+    h4 { color: #000; }
+    .botaocadastro { background-color: #797979; color: #020000; }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-3" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="neo" width="90" height="55">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Dúvidas? Nos contate "0000-0000"</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-3">
+    <button class="btn btn-secondary" onclick="window.history.back()">← Voltar</button>
+  </div>
+
+  <div class="container vh-50 d-flex justify-content-center align-items-center">
+    <div class="col-6">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-danger">
+            {{ messages[0] }}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('login') }}" method="post">
+        <div class="w-100 p-3" style="background-color: #a1a1a1; opacity: 0.8">
+          <h1>Login</h1>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" placeholder="Email" name="email" id="email" required>
+            <label for="email" class="form-label">Email*:</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" placeholder="Senha" name="senha" id="senha" required>
+            <label for="senha" class="form-label">Senha*:</label>
+          </div>
+
+          <div class="d-flex mt-3">
+            <button type="submit" class="botaocadastro w-75"><h4>Login</h4></button>
+            <small class="ml-2">
+              <p><h4>Não possui conta? <a href="{{ url_for('Cadastro') }}">Faça Cadastro</a></h4></p>
+            </small>
+          </div>
+
+          <p><h4><a href="{{ url_for('index') }}">Voltar</a></h4></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

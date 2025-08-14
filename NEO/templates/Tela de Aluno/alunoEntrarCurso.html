@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+  <title>Tela do Aluno</title>
+  <link rel="icon" type="image/x-icon" href="/static/logo.png">
+
+  <style>
+    body {
+      background-image: url("/static/Fundo.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+
+    h1 {
+      color: #000000;
+      font-family: Arial, sans-serif;
+      font-size: 60px;
+    }
+
+    h4 {
+      color: rgb(0, 0, 0);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-3" href="{{ url_for('alunoCurso') }}">
+        Aluno <img src="static/logo.png" alt="neo" width="90" height="55">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{ url_for('alunoCurso') }}">Meus Cursos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{ url_for('alunoEntrarCurso') }}">Entrar em um Curso</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a href="" class="float-right">
+          <button class="btn btn-outline-primary ms-2">Login</button>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <button class="btn btn-secondary" onclick="window.history.back()">← Voltar</button>
+  </div>
+
+  <div class="container mt-4">
+    <h1 class="text-center mb-4">Cursos Disponíveis</h1>
+    
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" id="tabelNotas">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">nome</th>
+            <th scope="col">número</th>
+            <th scope="col">estado</th>
+            <th scope="col">matéria</th>
+            <th scope="col">CH</th>
+            <th scope="col">horário</th>
+            <th scope="col">vagas</th>
+            <th scope="col">período</th>
+            <th scope="col">modalidade</th>
+            <th scope="col">pré-requisito</th>
+            <th scope="col">docente(id)</th>
+            <th scope="col" class="text-center">Entrar?</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in curso %}
+        <tr>
+          <td>{{ c.NomeCurso }}</td>
+          <td>{{ c.NumCurso }}</td>
+          <td>{{ c.EstadoCurso }}</td>
+          <td>{{ c.MateriaCurso }}</td>
+          <td>{{ c.CHCurso }}</td>
+          <td>{{ c.HorarioCurso }}</td>
+          <td>{{ c.VagasCurso }}</td>
+          <td>{{ c.PeriodoCurso }}</td>
+          <td>{{ c.Modalidade }}</td>
+          <td>{{ c.PreReqCurso }}</td>
+          <td>{{ c.Professor_IDProfessor }}</td>
+          <td class="text-center">
+  <form action="{{ url_for('entrar_curso') }}" method="POST">
+    <input type="hidden" name="Aluno_IDAluno" value="{{ aluno.IDAluno }}">
+    <input type="hidden" name="Curso_IDCurso" value="{{ c.IDCurso }}">
+    <button type="submit" class="btn btn-success btn-sm">Entrar</button>
+  </form>
+</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>
